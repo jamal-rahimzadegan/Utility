@@ -1,0 +1,3 @@
+function lockBodyScroll(shouldLock) {
+  document.body.style.overflow = shouldLock ? 'hidden' : 'auto';
+}
