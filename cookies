@@ -1,0 +1,46 @@
+class Cookies {
+  constructor() {
+    const d = new Date();
+    this.set = (name, value, days) => {
+      d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days);
+      document.cookie = name + '=' + value + ';path=/;expires=' + d.toGMTString();
+    };
+
+    this.multiSet = (pairs) => {
+      pairs.map((cookie) => {
+        d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * cookie.days);
+        document.cookie = cookie.name + '=' + cookie.value + ';path=/;expires=' + d.toGMTString();
+      });
+    };
+
+    this.get = (name) => {
+      const hasCookie = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      return hasCookie ? hasCookie[2] : null;
+    };
+
+    this.getAll = () => {
+      let singleCookie = document.cookie.split(';');
+      let allCookies = {};
+      let i = 0;
+      for (i; i < singleCookie.length; i++) {
+        let pair = singleCookie[i].split('=');
+        allCookies[(pair[0] + '').trim()] = unescape(pair.slice(1).join('='));
+      }
+      return allCookies;
+    };
+
+    this.delete = (name) => (document.cookie = name + '=; Max-Age=-99999999;');
+
+    this.deleteAll = () => {
+      let cookie = document.cookie;
+      let allCookies = cookie.split(';');
+      let i = 0;
+      for (i; i < allCookies.length; i++) {
+        let key = allCookies[i].split('=');
+        document.cookie = key[0] + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+      }
+    };
+  }
+}
+
+export default new Cookies();
