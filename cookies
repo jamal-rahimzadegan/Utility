@@ -1,50 +1,63 @@
-export default new class Cookies {
-  set: Function;
-  multiSet: Function;
-  get: Function;
-  getAll: Function;
-  delete: Function;
-  deleteAll: Function;
-
-  set = (name, value, days, path) => {
-    document.cookie = name + '=' + value + this.setPath(path) + this.setExpiration(days);
+class Cookies {
+  set = (name: string, value: string | number, days: number, path: string) => {
+    document.cookie = name + '=' + value + this.setPath(path) + this.setExpireDate(days);
   };
 
-  multiSet = (pairs) => {
+  setMultiple = (pairs: [{ [key: string]: any }]) => {
     pairs.map((cookie) => {
       const { name, value, days, path } = cookie;
       this.set(name, value, days, path);
     });
   };
 
-  get = (name) => {
+  get = (name: string) => {
     const targetCookie = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return targetCookie ? targetCookie[2] : null;
   };
 
+  getMultiple = (names: string[]) => {
+    const allCookies = this.getAll();
+    let matchCookies = {};
+
+    names.map((name) => (matchCookies[name] = allCookies[name]));
+
+    return matchCookies;
+  };
+
   getAll = () => {
-    let allCookies = document.cookie.split(';');
-    let formattedCookies = {};
-    let i = 0;
-    for (i; i < allCookies.length; i++) {
-      let pair = allCookies[i].split('=');
-      formattedCookies[(pair[0] + '').trim()] = unescape(pair.slice(1).join('='));
-    }
-    return formattedCookies;
+    const formattedCookies = document.cookie.split(';');
+    let allCookies = {};
+
+    formattedCookies.map((cookie) => {
+      let pair = cookie.split('=');
+      allCookies[(pair[0] + '').trim()] = unescape(pair.slice(1).join('='));
+    });
+
+    return allCookies;
   };
 
-  delete = (name) => (document.cookie = name + '=; Max-Age=-99999999;');
-
-  deleteAll = () => {
-    let allCookies = document.cookie.split(';');
-    allCookies.map((cookieItem) => this.delete(cookieItem.split('=')[0]));
+  remove = (name: string) => {
+    document.cookie = name + '=; Max-Age=-99999999;';
   };
 
-  private setPath = (path) => `;path=${path || '/'}`;
+  removeMultiple = (names: string[]) => {
+    names.map((name) => this.remove(name));
+  };
 
-  private   setExpiration = (days = 365) => {
+  removeAll = () => {
+    const allCookies = document.cookie.split(';');
+    allCookies.map((cookieItem) => this.remove(cookieItem.split('=')[0]));
+  };
+
+  private setPath = (cookiePath: string) => {
+    return `;path=${cookiePath || '/'}`;
+  };
+
+  private setExpireDate = (days: number = 365) => {
     let date = new Date();
     date.setTime(date.getTime() + 24 * 60 * 60 * 1000 * days);
     return ';expires=' + date.toUTCString();
   };
 }
+
+export default new Cookies();
