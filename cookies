@@ -12,7 +12,11 @@ class Cookies {
 
   get = (name: string) => {
     const targetCookie = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    return targetCookie ? targetCookie[2] : null;
+     if (targetCookie) {
+      return ['{', '['].some(el => targetCookie[2].includes(el))
+        ? JSON.parse(unescape(targetCookie[2]))
+        : targetCookie[2];
+    }
   };
 
   getMultiple = (names: string[]) => {
