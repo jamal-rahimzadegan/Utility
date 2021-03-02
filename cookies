@@ -1,79 +1,88 @@
 class Cookie {
-  set = (name: string, value: string | number, expire?: number, path?: string) => {
+  set(name: string, value: string | number, options?: any) {
+    const { res, expire, path } = options || {};
     if (typeof document !== 'undefined') {
-      document.cookie = name + '=' + value + this.setPath(path) + this.setExpireDate(expire);
+      document.cookie = `${name}=${value};path=${path || '/'};expires=${this.setExpireDate(expire)}`;
     }
-  };
+    if (res) {
+      res.cookie(name, value, { maxAge: this.setExpireDate(expire, res), path: path || '/' });
+    }
+  }
 
-  setMultiple = (pairs: [{ [key: string]: any }]) => {
+  setMultiple(pairs: any[], res?: any) {
+    pairs.map((cookie) => {
+      const { name, value, expire, path } = cookie || {};
+      this.set(name, value, { expire, path, res });
+    });
+  }
+
+  get(name: string, req?: any) {
+    const cookies = req ? req.headers.cookie : typeof document !== 'undefined' ? document.cookie : '';
+    const targetCookie = cookies.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    if (targetCookie) {
+      return ['{', '['].some((el) => targetCookie[2].includes(el))
+        ? JSON.parse(unescape(targetCookie[2]))
+        : targetCookie[2];
+    }
+  }
+
+  getMultiple(names: string[], req?: any) {
+    const allCookies = req ? this.getAll(req) : typeof document !== 'undefined' ? this.getAll() : {};
+    let matchCookies = {};
+    names.map((name) => (matchCookies[name] = allCookies[name]));
+    return matchCookies;
+  }
+
+  getAll(req?: any) {
+    let formattedCookies = [];
+    let allCookies = {};
+
     if (typeof document !== 'undefined') {
-      pairs.map((cookie) => {
-        const { name, value, days, path } = cookie;
-        this.set(name, value, days, path);
-      });
+      formattedCookies = document.cookie.split(';');
     }
-  };
 
-  get = (name: string) => {
+    if (req) {
+      formattedCookies = req.headers.cookie.split(';');
+    }
+
+    formattedCookies.map((cookie) => {
+      const pair = cookie.split('=');
+      allCookies[(pair[0] + '').trim()] = unescape(pair.slice(1).join('='));
+    });
+
+    return allCookies;
+  }
+
+  remove(name: string, res?: any) {
     if (typeof document !== 'undefined') {
-      const targetCookie = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-      if (targetCookie) {
-        return ['{', '['].some((el) => targetCookie[2].includes(el))
-          ? JSON.parse(unescape(targetCookie[2]))
-          : targetCookie[2];
-      }
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     }
-  };
-
-  getMultiple = (names: string[]) => {
-    if (typeof document !== 'undefined') {
-      const allCookies = this.getAll();
-      let matchCookies = {};
-      names.map((name) => (matchCookies[name] = allCookies[name]));
-      return matchCookies;
+    if (res) {
+      res.clearCookie(name);
     }
-  };
+  }
 
-  getAll = () => {
-    if (typeof document !== 'undefined') {
-      const formattedCookies = document.cookie.split(';');
-      let allCookies = {};
-      formattedCookies.map((cookie) => {
-        let pair = cookie.split('=');
-        allCookies[(pair[0] + '').trim()] = unescape(pair.slice(1).join('='));
-      });
-      return allCookies;
+  removeMultiple(names: string[], res?: any) {
+    names.map((name) => this.remove(name, res));
+  }
+
+  removeAll(req?: any, res?: any) {
+    let allCookies = [];
+    if (req) allCookies = req.headers.cookie.split(';');
+    if (typeof document !== 'undefined') allCookies = document.cookie.split(';');
+    allCookies.map((cookieItem) => this.remove(cookieItem.split('=')[0], res));
+  }
+
+  private setExpireDate(expire: number, res?: any) {
+    let expireTime = 24 * 60 * 60 * 1000 * (expire || 365);
+    if (res) {
+      return expireTime;
+    } else {
+      let date = new Date();
+      date.setTime(date.getTime() + expireTime);
+      return date.toUTCString();
     }
-  };
-
-  remove = (name: string) => {
-    if (typeof document !== 'undefined') {
-      document.cookie = name + '=; Max-Age=-99999999;';
-    }
-  };
-
-  removeMultiple = (names: string[]) => {
-    if (typeof document !== 'undefined') {
-      names.map((name) => this.remove(name));
-    }
-  };
-
-  removeAll = () => {
-    if (typeof document !== 'undefined') {
-      const allCookies = document.cookie.split(';');
-      allCookies.map((cookieItem) => this.remove(cookieItem.split('=')[0]));
-    }
-  };
-
-  private setPath = (cookiePath: string) => {
-    return `;path=${cookiePath || '/'}`;
-  };
-
-  private setExpireDate = (expire: number = 365) => {
-    let date = new Date();
-    date.setTime(date.getTime() + 24 * 60 * 60 * 1000 * expire);
-    return ';expires=' + date.toUTCString();
-  };
+  }
 }
 
 export default new Cookie();
