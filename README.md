@@ -2,7 +2,7 @@
   <h1>
     <img src="./javascript.svg" alt='js-icon' height="25%" width="25%"/>
     <br />
-   Javascript useful utils
+   Uuseful Javascript utils
     <br />
     <br />
   </h1>
