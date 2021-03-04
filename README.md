@@ -13,3 +13,4 @@
 - `lockBodyScroll` &mdash; Locks the scroll of body (for nested divs)
 - `socialFormatter` &mdash; Returns value in format of social medias (e.g. 1m 100K)
 - `toPersian` &mdash; Converts any string number (even in innerHtml) to persian number
+- `scrollToElement` &mdash; Scrolls to specific element
