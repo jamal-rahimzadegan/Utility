@@ -15,4 +15,4 @@
 - `scrollToElement` &mdash; Scrolls to specific element
 - `toEnglish` &mdash; Converts any string number (even in innerHtml) to persian number
 - `setMediaQuery` &mdash; Using media query anywhere
-- `setMediaQuery` &mdash; DRY your request code with this calss
+- `AxiosRequest` &mdash; DRY your request code with this calss
