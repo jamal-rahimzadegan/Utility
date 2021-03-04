@@ -1,6 +1,6 @@
 <div align="center">
   <h1>
-    <img src="./javascript.svg" alt='js-icon'/>
+    <img src="./javascript.svg" alt='js-icon' height="25%" width="25%"/>
     <br />
    Javascript Usefull Utils
     <br />
