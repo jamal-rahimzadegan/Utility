@@ -1,0 +1,20 @@
+export default function scrollToElement(idToScroll, direction, offsetToScroll) {
+  const element = document.getElementById(idToScroll);
+
+  switch (direction) {
+    case 'left':
+      element.scrollLeft -= offsetToScroll;
+      break;
+    case 'right':
+      element.scrollLeft += offsetToScroll;
+      break;
+    case 'top':
+      element.scrollTop += offsetToScroll;
+      break;
+    case 'bottom':
+      element.scrollTop -= offsetToScroll;
+      break;
+    default:
+      return;
+  }
+}
