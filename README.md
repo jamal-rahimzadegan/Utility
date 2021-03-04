@@ -1,6 +1,9 @@
 <div align="center">
   <h1>
+    <div style="background-color:yellow">
     <img src="./javascript.svg" alt='js-icon' height="25%" width="25%"/>
+     
+    </div>
     <br />
    Javascript Usefull Utils
     <br />
