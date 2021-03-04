@@ -1,6 +1,8 @@
 class Cookie {
-  set(name: string, value: string | number, options?: any) {
-    const { res, expire, path } = options || {};
+  constructor() {  }
+  
+  set(name: string, value: string | number, {options}?: any) {
+    const { res, expires, path, ...restOptions } = options || {};
     if (typeof document !== 'undefined') {
       document.cookie = `${name}=${value};path=${path || '/'};expires=${this.setExpireDate(expire)}`;
     }
@@ -11,18 +13,22 @@ class Cookie {
 
   setMultiple(pairs: any[], res?: any) {
     pairs.map((cookie) => {
-      const { name, value, expire, path } = cookie || {};
-      this.set(name, value, { expire, path, res });
+      const { name, value, ...rest } = cookie || {};
+      this.set(name, value, { res, ...rest });
     });
   }
 
   get(name: string, req?: any) {
-    const cookies = req ? req.headers.cookie : typeof document !== 'undefined' ? document.cookie : '';
-    const targetCookie = cookies.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    if (targetCookie) {
-      return ['{', '['].some((el) => targetCookie[2].includes(el))
-        ? JSON.parse(unescape(targetCookie[2]))
-        : targetCookie[2];
+    let cookies = '';
+    if (typeof document !== 'undefined') cookies = document.cookie;
+    if (req) cookies = req.headers.cookie;
+    const targetCookie = cookies.match(`(^|;) ?${name}=([^;]*)(;|$)`);
+
+    if (cookies && targetCookie) {
+      const unescapedName = unescape(targetCookie[2]);
+      return [`[`, `{`].some(el => unescapedName.includes(el)) ? JSON.parse(unescapedName) : unescapedName;
+    } else {
+      return undefined;
     }
   }
 
@@ -36,30 +42,22 @@ class Cookie {
   getAll(req?: any) {
     let formattedCookies = [];
     let allCookies = {};
+    
+    if (typeof document !== 'undefined') formattedCookies = document.cookie.split(';');
 
-    if (typeof document !== 'undefined') {
-      formattedCookies = document.cookie.split(';');
-    }
+    if (req) formattedCookies = req.headers.cookie.split(';');
 
-    if (req) {
-      formattedCookies = req.headers.cookie.split(';');
-    }
-
-    formattedCookies.map((cookie) => {
-      const pair = cookie.split('=');
-      allCookies[(pair[0] + '').trim()] = unescape(pair.slice(1).join('='));
+    formattedCookies.map(cookie => {
+      const cookieName = cookie.split('=')[0].trim();
+      allCookies[cookieName] = this.get(cookieName,req);
     });
 
     return allCookies;
   }
 
   remove(name: string, res?: any) {
-    if (typeof document !== 'undefined') {
-      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    }
-    if (res) {
-      res.clearCookie(name);
-    }
+    if (typeof document !== 'undefined') document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    if (res) res.clearCookie(name);
   }
 
   removeMultiple(names: string[], res?: any) {
@@ -85,4 +83,4 @@ class Cookie {
   }
 }
 
-export default new Cookie();
+module.exports = new Cookie();
