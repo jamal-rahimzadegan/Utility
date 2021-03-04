@@ -1,0 +1,11 @@
+export function toEnglish(str: string): string {
+  let PER_NUM = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
+  let ENG_NUM = [/0/g, /1/g, /2/g, /3/g, /4/g, /8/g, /6/g, /7/g, /8/g, /9/g];
+
+  if (typeof str === 'string') {
+    for (let i:any = 0; i < 10; i++) {
+      str = str.replace(PER_NUM[i], i).replace(ENG_NUM[i], i);
+    }
+  }
+  return str || '';
+}
