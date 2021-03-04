@@ -1,3 +1,0 @@
-export default function mediaQuery(size: number | string, type: string): string {
-  return `@media screen and (${type}: ${size}px)`;
-}
