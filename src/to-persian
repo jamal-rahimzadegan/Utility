@@ -1,23 +1,10 @@
-String.prototype.toPersian = function () {
-  let PersianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-  return this.replace(/[0-9]/g, function (w) {
-    return PersianDigits[+w];
-  });
-};
-
-
-export function toPersian(text) {
-let lang="fa"
-
-  if (typeof text !== 'undefined' && text) {
-    return lang === 'fa'
-      ? typeof text == 'number'
-        ? text.toString().toPersian()
-        : text.toPersian()
-      : typeof text == 'number'
-      ? text.toString()
-      : text;
-  } else {
-    return '';
+const EN_NUM = /[0-9]/g
+const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+ 
+export default function convertEnToFa(str:string) {
+  if (typeof str === 'string') {
+    return str.replace(EN_NUM, (w) => persianDigits[+w]);
   }
+
+  return str || '';
 }
