@@ -1,4 +1,4 @@
-```ts
+
 function convertToEng(txt:string, type:string = "per"):string {
  const AR_MATCH = /[٠١٢٣٤٥٦٧٨٩]/g;
  const PER_MATCH = /[۰۱۲۳۴۵۶۷۸۹]/g;
@@ -15,5 +15,3 @@ function convertToEng(txt:string, type:string = "per"):string {
    return txt.replace(AR_MATCH, replaceArabic).replace(PER_MATCH, replacePer);
  }
 }
-
-```
