@@ -41,4 +41,4 @@ class AxiosRequest {
   }
 }
 
-module.exports = new AxiosRequest(); // for using on es5 (custom server for example)
+export default new AxiosRequest(); // for using on es5 (custom server for example)
