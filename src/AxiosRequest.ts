@@ -4,8 +4,6 @@ const METHODS = ['get', 'post', 'put', 'patch', 'delete'];
 
 class AxiosRequest {
   token: string | null;
-  post: Function;
-  get: Function;
 
   constructor() {
     this.token="your api token goes here"
