@@ -15,4 +15,5 @@
 - `toEnglish` &mdash; Converts any string number (even in innerHtml) to persian number
 - `scrollToElement` &mdash; Scrolls to specific element
 - `setMediaQuery` &mdash; Using media query anywhere
+- `debounce` &mdash; Native JS debounce function (prevents muliple clicks on an element)
 - `AxiosRequest` &mdash; DRY your request code with this calss
