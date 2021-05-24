@@ -16,4 +16,5 @@
 - `scrollToElement` &mdash; Scrolls to specific element
 - `setMediaQuery` &mdash; Using media query anywhere
 - `debounce` &mdash; Native JS debounce function (prevents muliple clicks on an element)
+- `isObjectEmpty` &mdash; Checks if an object is empty or not
 - `AxiosRequest` &mdash; DRY your request code with this calss
