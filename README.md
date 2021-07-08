@@ -18,4 +18,4 @@
 - `setMediaQuery` &mdash; Using media query anywhere
 - `debounce` &mdash; Native JS debounce function (prevents muliple clicks on an element)
 - `isObjectEmpty` &mdash; Checks if an object is empty or not
-- `handleSwipe` &mdash; returns a promise with the direction of the swipe
+- `handleSwipe` &mdash; Returns a promise with the direction of the swipe
