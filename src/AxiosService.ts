@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const METHODS = ['get', 'post', 'put', 'patch', 'delete'];
 
-class AxiosRequest {
+class AxiosService {
   token: string | null;
 
   constructor() {
