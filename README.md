@@ -2,7 +2,7 @@
   <h1>
     <img src="./javascript.svg" alt='js-icon' height="25%" width="25%"/>
     <br />
-   Javascript Helpers (utils)
+   Javascript Utils (Helpers)
     <br />
     <br />
   </h1>
