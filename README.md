@@ -21,4 +21,5 @@
 - `isObjectEmpty` &mdash; Checks if an object is empty or not
 - `currencyForm` &mdash; Returns the currency format of money in Toman (IRR)
 - `lockBodyScroll` &mdash; Locks the scroll of body (for nested divs)
+- `LS` &mdash; Small helper for localStorage (with nice methods)
 
