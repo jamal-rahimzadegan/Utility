@@ -1,29 +1,42 @@
 /**
  * Simple class for working with localStorage nicely
  */
+import runBeforeEachMethod from 'utils/run-before-each-method';
+import generateError from 'utils/generate-error';
 
-type SetMultiItemType = { [key: string]: any };
+type SetMultiItemType = { [key: string]: unknown };
 
 class LS {
   isSupported: boolean;
 
   constructor() {
     this.isSupported = typeof Storage !== 'undefined';
+    runBeforeEachMethod(this, this.checkSupport.bind(this));
   }
 
-  get(key: string) {
+  checkSupport() {
+    if (!this.isSupported) {
+      generateError('There is no localStorage', 404);
+    }
+  }
+
+  get(key: string, isMultiple?: boolean) {
     try {
       return localStorage.getItem(key);
     } catch (e) {
-      console.log(`--- e in get ----> `, e);
+      if (isMultiple) generateError('no localStorage found');
+      return { err: e, msg: 'error in getting ' + key };
     }
   }
 
   getMultiple(keys: string[]) {
     try {
-      return keys.map((k) => this.get(k));
+      let items = {};
+      let i = keys.length;
+      while (i--) items[keys[i]] = this.get(keys[i], true);
+      return items;
     } catch (e) {
-      console.log(`--- e in get multiple ----> `, e);
+      return { err: e, msg: 'error in getting multiple' };
     }
   }
 
@@ -32,11 +45,10 @@ class LS {
       let items = {};
       let keys = Object.keys(localStorage);
       let i = keys.length;
-
       while (i--) items[keys[i]] = this.get(keys[i]);
       return items;
     } catch (e) {
-      console.log(`--- e in get all ----> `, e);
+      return { err: e, msg: 'error in getting all' };
     }
   }
 
@@ -44,7 +56,7 @@ class LS {
     try {
       return localStorage.setItem(key, value);
     } catch (e) {
-      console.log(`--- e in set ----> `, e);
+      return e;
     }
   }
 
@@ -54,19 +66,23 @@ class LS {
         Object.entries(item).map(([key, value]) => this.set(key, value));
       });
     } catch (e) {
-      console.log(`--- e in set multiple ----> `, e);
+      return e;
     }
   }
 
   remove(key: string) {
-    return localStorage.removeItem(key);
+    try {
+      return localStorage.removeItem(key);
+    } catch (e) {
+      return e;
+    }
   }
 
   removeMultiple(keys: string[]) {
     try {
       return keys.map((k) => this.remove(k));
     } catch (e) {
-      console.log(`--- e in remove multiple ----> `, e);
+      return e;
     }
   }
 
@@ -74,7 +90,7 @@ class LS {
     try {
       return localStorage.clear();
     } catch (e) {
-      console.log(`--- e in clear ----> `, e);
+      return e;
     }
   }
 }
