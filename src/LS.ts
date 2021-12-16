@@ -1,10 +1,10 @@
+import { ComplexObject } from 'types';
+import runBeforeEachMethod from './run-before-each-method';
+import generateError from './generate-error';
+
 /**
  * Simple class for working with localStorage nicely
  */
-import runBeforeEachMethod from 'utils/run-before-each-method';
-import generateError from 'utils/generate-error';
-
-type SetMultiItemType = { [key: string]: unknown };
 
 class LS {
   isSupported: boolean;
@@ -15,8 +15,10 @@ class LS {
   }
 
   checkSupport() {
-    if (!this.isSupported) {
-      generateError('There is no localStorage', 404);
+    try {
+      if (!this.isSupported) generateError('There is no localStorage', 404);
+    } catch (e) {
+      return e;
     }
   }
 
@@ -60,7 +62,7 @@ class LS {
     }
   }
 
-  setMultiple(items: SetMultiItemType[]) {
+  setMultiple(items: ComplexObject[]) {
     try {
       return items.map((item, i) => {
         Object.entries(item).map(([key, value]) => this.set(key, value));
