@@ -8,19 +8,19 @@
   </h1>
 </div>
 
-- `AxiosService` &mdash; DRY your axios requests  with this calss
-- `handleSwipe` &mdash; Returns a promise with the direction of the swipe
-- `socialFormatter` &mdash; Returns value in format of social medias (e.g. 1m 100K)
-- `debounce` &mdash; Native JS debounce function (prevents muliple clicks on an element)
-- `generateError` &mdash; Reusable function to throwing errors and more
-- `generateArr` &mdash; Fastly create arrays
-- `toPersian` &mdash; Converts any string number (even in innerHtml) to persian number
-- `toEnglish` &mdash; Converts any string number (even in innerHtml) to english number
-- `scrollToElement` &mdash; Scrolls to specific element
-- `setMediaQuery` &mdash; Using media query anywhere
-- `checkEmptyObject` &mdash; Checks if an object has proptery or not
-- `currencyForm` &mdash; Returns the currency format of money in Toman (IRR)
-- `lockBodyScroll` &mdash; Locks the scroll of body (for nested divs)
-- `LS` &mdash; Small helper for localStorage (with nice methods)
-- `runBeforeEachMethod` &mdash; Happy helper to execute a callback on every class method
+- `AxiosService` &mdash;> Advanced configuration of axios to DRY your api calls.
+- `simple-axios-module.js` &mdash;> Simpler configuration of axios to have cleaner api calls.
+- `runBeforeEachMethod`&mdash;> Happy helper to execute a callback on every class method.
+- `handleSwipe` &mdash;> Returns a promise with the direction of the swipe.
+- `socialFormatter` &mdash;> Returns value in format of social medias (e.g. 1m 100K).
+- `debounce` &mdash;> Native JS debounce function (prevents muliple clicks on an element).
+- `validateInput` &mdash;> Validate inputs for XSS attacks.
+- `handleSwipe` &mdash;> detect the swiper directinon and doing some staff on user swipe.
+- `generateError` &mdash;> Reusable function to throwing errors and more.
+- `generateArr` &mdash;> Fastly create arrays.
+- `toPersian` &mdash;> Converts any string number (even in innerHtml) to persian number.
+- `toEnglish` &mdash;> Converts any string number (even in innerHtml) to english number.
+- `scrollToElement` &mdash;> Scrolls to specific element.
+- `checkEmptyObject` &mdash;> Checks if an object has proptery or not.
+- `LS` &mdash;> Small helper for localStorage (with nice methods).
 
