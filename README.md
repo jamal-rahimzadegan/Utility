@@ -18,7 +18,7 @@
 - `toEnglish` &mdash; Converts any string number (even in innerHtml) to english number
 - `scrollToElement` &mdash; Scrolls to specific element
 - `setMediaQuery` &mdash; Using media query anywhere
-- `isObjectEmpty` &mdash; Checks if an object is empty or not
+- `checkEmptyObject` &mdash; Checks if an object has proptery or not
 - `currencyForm` &mdash; Returns the currency format of money in Toman (IRR)
 - `lockBodyScroll` &mdash; Locks the scroll of body (for nested divs)
 - `LS` &mdash; Small helper for localStorage (with nice methods)
