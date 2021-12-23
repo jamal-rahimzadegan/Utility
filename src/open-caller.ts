@@ -1,5 +1,3 @@
-import { IS_SSR } from 'constant';
-
 type CallerType = 'mail' | 'phone' | 'sms';
 
 export default async function openCaller(type: CallerType, number?: string, msg?: string) {
@@ -9,5 +7,5 @@ export default async function openCaller(type: CallerType, number?: string, msg?
     sms: `sms://${number}/?body=${msg}`,
   };
 
-  if (!IS_SSR) window.open(CALLER_SET[type], '_self');
+ window.open(CALLER_SET[type], '_self');
 }
