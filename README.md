@@ -16,6 +16,7 @@
 - `debounce` &mdash;> Native JS debounce function (prevents muliple clicks on an element).
 - `validateInput` &mdash;> Validate inputs for XSS attacks.
 - `handleSwipe` &mdash;> detect the swiper directinon and doing some staff on user swipe.
+- `openCaller` &mdash;> Easily work with callers (mail, phone and etc).
 - `generateError` &mdash;> Reusable function to throwing errors and more.
 - `generateArr` &mdash;> Fastly create arrays.
 - `toPersian` &mdash;> Converts any string number (even in innerHtml) to persian number.
