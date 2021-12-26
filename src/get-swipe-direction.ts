@@ -1,40 +1,46 @@
-type StepType = 'start' | 'move' | 'end';
-type DirType = null | 'up' | 'down' | 'left' | 'right';
-
-let touchStartX: number = 0;
-let touchStartY: number = 0;
-let touchStopX: number = 0;
-let touchStopY: number = 0;
-let dir: DirType = null;
-
-export default function getSwipeDirection(step: StepType, e?: TouchEvent): null | Promise<DirType> {
-  switch (step) {
-    case 'start':
-      touchStartX = e.targetTouches[0].clientX;
-      touchStartY = e.targetTouches[0].clientY;
-      break;
-    case 'move':
-      touchStopX = e.targetTouches[0].clientX;
-      touchStopY = e.targetTouches[0].clientY;
-      break;
-    case 'end':
-      if (touchStopX !== 0 && touchStopY !== 0) {
-        if (touchStartY - touchStopY > 75) dir = 'up';
-        if (touchStartY - touchStopY < -75) dir = 'down';
-        if (touchStartX - touchStopX < -75) dir = 'right';
-        if (touchStartX - touchStopX > 75) dir = 'left';
-      }
-
-      return new Promise((resolve) => {
-        resolve(dir);
-
-        touchStartX = 0;
-        touchStartY = 0;
-        touchStopX = 0;
-        touchStopY = 0;
-        dir = null;
-      });
-    default:
-      return null;
-  }
+enum STEPS {
+  start = 'start',
+  move = 'move',
+  end = 'end',
 }
+type DirType = 'up' | 'down' | 'left' | 'right' | null;
+type ResultType = null | ((step: keyof typeof STEPS, e?: TouchEvent) => Promise<DirType>);
+
+function handleSwipe(): ResultType {
+  let startX: number = 0;
+  let startY: number = 0;
+  let stopX: number = 0;
+  let stopY: number = 0;
+  let dir: DirType = null;
+
+  return (step, e) => {
+    const { clientX, clientY } = e?.targetTouches?.[0] || {};
+
+    switch (step) {
+      case STEPS.start:
+        startX = clientX;
+        startY = clientY;
+        break;
+      case STEPS.move:
+        stopX = clientX;
+        stopY = clientY;
+        break;
+      case STEPS.end:
+        dir = (() => {
+          if (stopX !== 0 && stopY !== 0) {
+            if (startY - stopY > 75) return 'up';
+            if (startY - stopY < -75) return 'down';
+            if (startX - stopX < -75) return 'right';
+            if (startX - stopX > 75) return 'left';
+          }
+        })();
+
+        return new Promise((resolve) => resolve(dir));
+      default:
+        return null;
+    }
+  };
+}
+
+const getSwipeDirection = handleSwipe();
+export default getSwipeDirection;
