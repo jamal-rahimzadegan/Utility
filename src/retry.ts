@@ -1,23 +1,25 @@
-const executeWithDelay = (fn: Function, duration: number) => {
-  return new Promise((resolve) => setTimeout(() => resolve(fn()), duration));
-};
+function handleRetry() {
+  const executeWithDelay = (fn: Function, duration: number) => {
+    return new Promise((resolve) => setTimeout(() => resolve(fn()), duration));
+  };
 
-export default async function retry(cb: Function, tries: number = 1, delay: number = 1) {
-  const runPassedFunction = async (currentTry: number) => {
+  const runPassedFunction = async (currentTry: number, cb, tries, delay) => {
     try {
       return await cb();
     } catch (err) {
       if (currentTry <= tries) {
         const nextTry = currentTry + 1;
-        return executeWithDelay(() => runPassedFunction(nextTry), delay * 1000);
+        return executeWithDelay(() => runPassedFunction(nextTry, cb, tries, delay), delay * 1000);
       } else throw err;
     }
   };
 
-  return runPassedFunction(1);
+  return (cb: Function, tries: number, delay: number) => runPassedFunction(1, cb, tries, delay);
 }
 
+const retry = handleRetry();
+export default retry;
+
 /**
-  usage:
-  await retry(requestServerForData(), 2, 4);
+ * Usage: 2 tries that each one runs after 4 seconds -->  await retry(requestServer, 2, 4);
  */
