@@ -1,4 +1,4 @@
-import ls from '../../../utils/storage-service';
+import ls from '../src/storage-service';
 
 describe('LS should work for single operations ', () => {
   const singleKey = 'singleKey';
