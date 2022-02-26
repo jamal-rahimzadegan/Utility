@@ -1,5 +1,5 @@
 // pass duration as seconds
-export default function sleep(seconds: number, cb: Function) {
+export default function sleep(seconds: number = 0, cb: Function) {
 	const startTime = Date.now();
 	let currentTime = null;
 
