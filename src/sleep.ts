@@ -5,5 +5,6 @@ export default function sleep(seconds: number = 0, cb: Function) {
 
 	do currentTime = Date.now();
 	while (currentTime - startTime < seconds * 1000);
+	
 	cb?.(); // runs after sleep
 }
