@@ -5,7 +5,7 @@ export default async function getNetworkStatus(): Promise<StatusType> {
 
   try {
     const { status } = await fetch('https://jsonplaceholder.typicode.com/todos/1');
-    return status >= 200 && status < 300 ? 'online' : 'offline'; //  true or false
+    return status >= 200 && status < 300 ? 'online' : 'offline';
   } catch (err) {
     return 'offline';
   }
