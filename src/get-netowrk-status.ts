@@ -1,6 +1,6 @@
 type StatusType = 'online' | 'offline' | 'unknown';
 
-export default async function getInternetStatus(): Promise<StatusType> {
+export default async function getNetworkStatus(): Promise<StatusType> {
   if (typeof document === 'undefined') return 'unknown';
 
   try {
