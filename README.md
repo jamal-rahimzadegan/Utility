@@ -27,6 +27,7 @@
 - `StorageService` &mdash;> Small helper for localStorage (with nice methods and you can **save any data**).
 - `checkJson` &mdash;> Checks whether a string is JSON or not.
 - `checkPrimitive` &mdash;> Checks whether a variable is primitive (data that is not an object and has no methods) or not.
+- `castTimeMsg` &mdash;> Eeasy way to form the date messages like `10 days ago` or `yesterday` and etc.
 
 
 
