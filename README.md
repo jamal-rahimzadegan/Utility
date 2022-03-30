@@ -13,7 +13,7 @@
 - `simple-axios-module.js` &mdash;> Simpler configuration of axios to have cleaner api calls.
 - `runBeforeEachMethod`&mdash;> Happy helper to execute a callback on every class method.
 - `handleSwipe` &mdash;> Returns a promise with the direction of the swipe.
-- `socialFormatter` &mdash;> Returns value in format of social medias (e.g. 1m 100K).
+- `shortenNumber` &mdash;> Returns value in compacted format (e.g. 1M, 4K).
 - `debounce` &mdash;> Native JS debounce function (prevents muliple clicks on an element).
 - `validateInput` &mdash;> Validate inputs for XSS attacks.
 - `handleSwipe` &mdash;> detect the swiper directinon and doing some staff on user swipe.
