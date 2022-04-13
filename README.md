@@ -9,7 +9,6 @@
 </div>
 
 - `retry` &mdash;> Re-run a callback funciton using Promises with try count and delay time.
-- `AxiosService` &mdash;> Advanced configuration of axios to DRY your api calls.
 - `simple-axios-module.js` &mdash;> Simpler configuration of axios to have cleaner api calls.
 - `runBeforeEachMethod`&mdash;> Happy helper to execute a callback on every class method.
 - `handleSwipe` &mdash;> Returns a promise with the direction of the swipe.
