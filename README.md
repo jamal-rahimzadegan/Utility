@@ -27,6 +27,7 @@
 - `checkPrimitive` &mdash;> Checks whether a variable is primitive (data that is not an object and has no methods) or not.
 - `castTimeMsg` &mdash;> Eeasy way to form the date messages like `10 days ago` or `yesterday` and etc.
 - `generateUrl` &mdash;> Generate URLs with query params. (nice and easy)
+- `addLeadingZero` &mdash;> Add zero at the begining of a number (eg. countdown)
 
 
 
