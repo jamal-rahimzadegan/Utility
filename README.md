@@ -14,7 +14,7 @@
 - `handleSwipe` &mdash;> Returns a promise with the direction of the swipe.
 - `shortenNumber` &mdash;> Returns value in compacted format (e.g. 1M, 4K).
 - `debounce` &mdash;> Native JS debounce function (prevents muliple clicks on an element).
-- `validateInput` &mdash;> Validate inputs for XSS attacks.
+- `sanitizeInput` &mdash;> Validate inputs for injections.
 - `handleSwipe` &mdash;> detect the swiper directinon and doing some staff on user swipe.
 - `openCaller` &mdash;> Easily work with callers (mail, phone and etc).
 - `generateError` &mdash;> Reusable function to throwing errors and more.
