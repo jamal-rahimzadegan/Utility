@@ -1,6 +1,6 @@
 type RegionType = 'ar' | 'per' | 'both';
 
-const AR_MATCH: RegExp = /[٠١٢٣٤٥٦٧٨٩]/g;
+const AR_MATCH: RegExp =  /[۰-۹]/g;
 const PER_MATCH: RegExp = /[۰۱۲۳۴۵۶۷۸۹]/g;
 
 const replacePer = (char) => char.charCodeAt(0) - 1776 + '';
