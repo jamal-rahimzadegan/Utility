@@ -1,6 +1,6 @@
 
 function handleCopy() {
-	// This will be executed if the default method is not supported by the browser
+	// This will be executed if the default method fails (is not supported by the browser).
 	const retryCopy = (text: string) => {
 		let input = document.createElement("input");
 		input.setAttribute("value", text);
