@@ -14,7 +14,7 @@ function handleCopy() {
 		if (!text) return console.error(`---Pass correct text to copy --->`);
 
 		try {
-			navigator?.clipboard?.writeText(text);
+			navigator.clipboard.writeText(text);
 		} catch (err) {
 			console.error("err in copyToClipboard ", err);
 			retryCopy(text);
