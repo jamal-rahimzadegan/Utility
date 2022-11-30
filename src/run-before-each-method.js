@@ -1,7 +1,10 @@
 /**
  Utility to call a function before each class method (working with getters and setters)
- Use it like thi in the constructor --> return runBeforeEachMethod(this, this.[METHOD_TO_CALL].bind(this));
+ 
  @requires a Class and a Callback fn
+
+ Use it like thi in the constructor --> return runBeforeEachMethod(this, this.[METHOD_TO_CALL].bind(this));
+ 
  @returns a Proxy
  */
 
