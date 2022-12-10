@@ -8,5 +8,8 @@ function lazyLoad(path: string, namedExport: string): LazyExoticComponent<any> {
   })
 }
 
-// Example
+// Example for default export
+// const Home = lazyLoad('./pages/Home')
+
+// Example for named export
 // const Home = lazyLoad('./pages/Home', 'Home')
