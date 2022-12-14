@@ -6,7 +6,7 @@ type MSG = {
   newValue: string | null
 }
 
-class CrossTab {
+class CrossTabLs {
   readonly KEY: string
   private msg: MSG
 
@@ -50,7 +50,7 @@ class CrossTab {
   }
 }
 
-export default new CrossTab()
+export default new CrossTabLs()
 
 // Example:
 // <>
