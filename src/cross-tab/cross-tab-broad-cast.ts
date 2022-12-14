@@ -1,4 +1,6 @@
 
+// Check browser support before usage
+
 type BroadcastCallback = (this: BroadcastChannel, e: MessageEvent) => any
 
 class CrossTabBroadcast {
