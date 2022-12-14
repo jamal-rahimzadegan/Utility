@@ -1,5 +1,5 @@
 
-// Check browser support before usage
+// Check browser support before using it
 
 type BroadcastCallback = (this: BroadcastChannel, e: MessageEvent) => any
 
