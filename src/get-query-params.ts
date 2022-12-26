@@ -1,10 +1,14 @@
-export default function getQueryParams(search: string):{ [key: string]: string } {
-	if (!search) return {};
+type QueryParams = {
+  [key: string]: string
+}
 
-	let queries = {};
-	new URLSearchParams(search).forEach((value: string, key: string) => {
-		queries[key] = value;
-	});
+export default function getQueryParams(search: string): QueryParams {
+  if (!search) return {}
 
-	return queries;
+  let queriesParams = {}
+  new URLSearchParams(search).forEach((value: string, key: string) => {
+    queriesParams[key] = value
+  })
+
+  return queriesParams
 }
