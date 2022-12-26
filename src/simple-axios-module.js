@@ -28,14 +28,6 @@ export default {
     return createAxiosRequest("post", api, data, headers);
   },
 
-  delete(api, data, headers) {
-    return createAxiosRequest("delete", api, data, headers);
-  },
-
-  put(api, data, headers) {
-    return createAxiosRequest("put", api, data, headers);
-  },
-
   patch(api, data, headers) {
     return createAxiosRequest("patch", api, data, headers);
   },
