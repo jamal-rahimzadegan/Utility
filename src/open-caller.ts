@@ -13,7 +13,7 @@ export default async function openCaller(...params: Params) {
 	};
 
 	let opener = document.createElement("a");
-	Object.assign(opener, { href: CALLER_SET[type], target: "_blank", rel: "noopener" });
+	Object.assign(opener, { href: CALLER_SET[type], target: "_blank", rel: 'noopener,noreferrer' });
 
 	opener.click();
 }
