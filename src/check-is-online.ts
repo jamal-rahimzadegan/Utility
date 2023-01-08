@@ -1,5 +1,4 @@
-// NOTE: you also can use `axios` it supports SSR.
-
+// NOTE: you can also use `axios` it supports SSR.
 export default async function checkIsOnline(): Promise<boolean> {
   if (typeof document === 'undefined') return false;
 
