@@ -34,6 +34,6 @@ export httpRequest
 
 // Usage:
 //  const getData = async () => {
-//     const res = await httpRequest.get("https://jsonplaceholder.typicode.com/todos/1");
+//     const res = await httpRequest.post("SOME_API" , {userName:"test"});
 //     console.log(res);
 //   };
