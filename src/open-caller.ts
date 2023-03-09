@@ -1,19 +1,28 @@
-type CallerType = "mail" | "phone" | "sms";
-type Params = [type: CallerType, address?: string, msg?: string, title?: string];
 
-export default async function openCaller(...params: Params) {
-	const [type, address, msg = "", title = ""] = params;
+interface Params {
+  type: "mail" | "phone" | "sms";
+  address: string;
+  title?: string;
+  msg?: string;
+}
 
-	if (!type || !address) return;
+export default async function openCaller(params: Params) {
+  const { type, address, title = "", msg = "" } = params;
 
-	const CALLER_SET = {
-		mail: `mailto:${address}?subject=${title}&body=${msg}`,
-		phone: "tel:" + address,
-		sms: `sms://${address}/?body=${msg}`,
-	};
+  if (!type || !address) return;
 
-	let opener = document.createElement("a");
-	Object.assign(opener, { href: CALLER_SET[type], target: "_blank", rel: 'noopener,noreferrer' });
+  const CALLER_SET = {
+    mail: `mailto:${address}?subject=${title}&body=${msg}`,
+    phone: "tel:" + address,
+    sms: `sms://${address}/?body=${msg}`,
+  };
 
-	opener.click();
+  const opener = document.createElement("a");
+  Object.assign(opener, {
+    href: CALLER_SET[type],
+    target: "_blank",
+    rel: "noopener,noreferrer",
+  });
+
+  opener.click();
 }
