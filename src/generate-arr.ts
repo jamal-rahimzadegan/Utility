@@ -1,3 +1,3 @@
-export default function generateArr(length: number, formatArr?: Function): any[] {
-  return Array.from({ length }, (v, k) => !!formatArr && formatArr(v, k));
+export default function generateArr(length: number, value: any): any[] {
+  return Array(6).fill(value)
 }
