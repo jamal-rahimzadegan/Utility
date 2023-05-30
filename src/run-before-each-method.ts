@@ -7,44 +7,29 @@
  `return runBeforeEachMethod(this, this.METHOD_TO_CALL_BEFORE_ALL.bind(this))`
   */
 
-type ClassType = Record<any, any>
-type ProxyReturnType = <T>(target: object, cb: Function) => T
+function handleGet(target: object, prop: string, cb: Function) {
+  const targetProp = (target as any)[prop]
+  const isMethod = typeof targetProp === 'function'
 
-function handleProxy(): ProxyReturnType {
-  const proxySet = (
-    targetClass: ClassType,
-    property: string,
-    newValue: any,
-    cb: Function,
-  ) => {
-    cb?.(property)
-    targetClass[property] = newValue
-  }
+  if (!isMethod) return targetProp
 
-  const proxyGet = (
-    targetClass: ClassType,
-    property: string,
-    cb: Function,
-  ): any => {
-    const targetProperty = targetClass[property]
-
-    const isMethod = typeof targetProperty === 'function'
-    if (!isMethod) return targetProperty
-
-    return function (...args: any[]) {
-      cb?.(property)
-      targetProperty.apply(targetClass, args)
-    }
-  }
-
-  return <T>(target: object, cb: Function) => {
-    return new Proxy(target, {
-      get: (classObj, property) => proxyGet(classObj, property as string, cb),
-      set: (classObj, property, newValue): any => {
-        proxySet(classObj, property as string, newValue, cb)
-      },
-    }) as T
+  return (...args: any[]) => {
+    cb?.()
+    return targetProp.apply(target, args)
   }
 }
 
-export const runBeforeEachClassMethod = handleProxy()
+function handleSet(target: object, prop: string, newValue: any, cb: Function) {
+  cb?.()
+  ;(target as any)[prop] = newValue
+}
+
+export function runBeforeEachMethod<T>(targetClass: object, cb: Function): T {
+  return new Proxy(targetClass, {
+    get: (target: object, prop: string) => handleGet(target, prop, cb),
+    set: (target: object, prop: string, newValue: any): boolean => {
+      handleSet(target, prop, newValue, cb)
+      return true
+    },
+  }) as T
+}
