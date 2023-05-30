@@ -7,25 +7,28 @@
  `return runBeforeEachMethod(this, this.METHOD_TO_CALL_BEFORE_ALL.bind(this))`
   */
 
-
 type ClassType = Record<any, any>
 type ProxyReturnType = <T>(target: object, cb: Function) => T
 
 function handleProxy(): ProxyReturnType {
-  const set = (
+  const proxySet = (
     targetClass: ClassType,
     property: string,
-    value: any,
+    newValue: any,
     cb: Function,
   ) => {
     cb?.(property)
-    targetClass[property] = value
+    targetClass[property] = newValue
   }
 
-  const get = (targetClass: ClassType, property: string, cb: Function): any => {
+  const proxyGet = (
+    targetClass: ClassType,
+    property: string,
+    cb: Function,
+  ): any => {
     const targetProperty = targetClass[property]
+
     const isMethod = typeof targetProperty === 'function'
- 
     if (!isMethod) return targetProperty
 
     return function (...args: any[]) {
@@ -36,9 +39,9 @@ function handleProxy(): ProxyReturnType {
 
   return <T>(target: object, cb: Function) => {
     return new Proxy(target, {
-      get: (classObj, property) => get(classObj, property as string, cb),
-      set: (classObj, property, value) => {
-        set(classObj, property as string, value, cb)
+      get: (classObj, property) => proxyGet(classObj, property as string, cb),
+      set: (classObj, property, newValue): any => {
+        proxySet(classObj, property as string, newValue, cb)
       },
     }) as T
   }
