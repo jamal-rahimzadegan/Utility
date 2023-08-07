@@ -1,15 +1,13 @@
-type Payload = [base: string, params?: { [key: string]: any }]
+type Payload = [base: string, params?: { [key: string]: any }];
 
 export default function generateUrl(...payload: Payload): URL {
-  const [base = '', params] = payload
+  const [base = '', params] = payload;
+  const url = new URL(base);
 
-  const url = new URL(base)
+  params &&
+    Object.entries(params).map(([key, value]) => {
+      url.searchParams.set(key, value);
+    });
 
-  if (params) {
-    Object.entries(params).map(([key, value]) =>
-      url.searchParams.set(key, value),
-    )
-  }
-
-  return url
+  return url;
 }
