@@ -1,4 +1,6 @@
-export default function debounce(fn: Function, timeout: number = 300) {
+// Use Case Example: "Double-Click" Prevention
+
+export default function throttle(fn: Function, timeout: number = 300) {
   let timer: ReturnType<typeof setTimeout> | undefined;
 
   return (...args) => {
